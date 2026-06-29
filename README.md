@@ -1,6 +1,6 @@
 ## How to deploy (AWS Academy sandbox)
 
-**Prerequisites:** Terraform ≥ 1.5, an AWS Academy sandbox session (region
+**Prerequisites: (Download all of these) ** Terraform ≥ 1.5, an AWS Academy sandbox session (region
 `us-east-1`), and Docker (only if rebuilding the image).
 
 **Depending on how Terraform is installed, step 3 might be different.**
