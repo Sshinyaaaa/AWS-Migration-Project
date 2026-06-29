@@ -1,4 +1,19 @@
 # =========================================================================
+# SCP-BLOCKED RESOURCES — COMMENTED OUT (kept as design evidence)
+# -------------------------------------------------------------------------
+# In the AWS Academy sandbox the voclabs role cannot create these:
+#   - aws_db_instance  -> rds:CreateDBInstance is denied
+#   - aws_s3_bucket    -> s3:GetBucketObjectLockConfiguration is explicitly
+#                         denied, which poisons the bucket resource
+# The application runs in MOCK MODE (no live DB), so they are not required to
+# deploy. The full hardened definitions are preserved below (storage_encrypted,
+# multi_az, TLS-only bucket policy, KMS default encryption) as Part B/D design
+# evidence. Re-enable by removing the /* */ wrappers in an account that allows
+# RDS/S3.
+# =========================================================================
+
+/*
+# =========================================================================
 # 1. SECURE FILE STORAGE BUCKET (With Unique Naming & Default KMS Encryption)
 # =========================================================================
 resource "aws_s3_bucket" "app_bucket" {
@@ -41,7 +56,7 @@ resource "aws_s3_bucket_policy" "enforce_tls" {
 }
 
 # =========================================================================
-# 2. SECURE, ENCRYPTED SINGLE-AZ RDS MYSQL DATABASE
+# 2. SECURE, ENCRYPTED RDS MYSQL DATABASE (Multi-AZ, private, encrypted)
 # =========================================================================
 resource "aws_db_instance" "mysql_db" {
   allocated_storage     = 20
@@ -63,3 +78,4 @@ resource "aws_db_instance" "mysql_db" {
   multi_az            = true
   skip_final_snapshot = true
 }
+*/

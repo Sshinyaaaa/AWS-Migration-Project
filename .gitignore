@@ -4,6 +4,9 @@ terraform.tfvars
 *.tfstate.backup
 .terraform/
 .terraform.lock.hcl
+# Saved plans embed variable values (incl. secrets) — never commit.
+tfplan.bin
+*.tfplan
 
 # --- Node / app ---
 node_modules/

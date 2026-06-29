@@ -3,6 +3,9 @@ output "alb_dns_name" {
   value       = aws_lb.app.dns_name
 }
 
+# rds_endpoint and s3_bucket outputs are commented out because their resources
+# are SCP-blocked and disabled in security.tf (the app runs in mock mode).
+/*
 output "rds_endpoint" {
   description = "RDS MySQL endpoint (private; reachable only from the app tier)"
   value       = aws_db_instance.mysql_db.address
@@ -12,6 +15,7 @@ output "s3_bucket" {
   description = "Application/backup S3 bucket name"
   value       = aws_s3_bucket.app_bucket.bucket
 }
+*/
 
 output "vpc_id" {
   value = aws_vpc.main.id
