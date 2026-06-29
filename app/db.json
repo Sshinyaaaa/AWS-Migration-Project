@@ -1,0 +1,65 @@
+{
+  "_comment": "SANITISED demo seed for MOCK MODE only. Contains NO real PII. Demo login: admin@demo.mmu / Demo1234!  and  alumni@demo.mmu / Demo1234!",
+  "users": [
+    {
+      "user_id": 1000000000001,
+      "email": "admin@demo.mmu",
+      "password_hash": "$2b$10$A0nOer41rFK3KjyinaepMu585LpzPMtPWEFslShmoTh5y4G7bWo/6",
+      "role": "admin",
+      "is_active": 1,
+      "created_at": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "user_id": 1000000000002,
+      "email": "alumni@demo.mmu",
+      "password_hash": "$2b$10$WVV.78d8NcMBvaKqzYuAIeClsdpkh8X8cCvHoOywsEOJbYfxhW5Bu",
+      "role": "alumni",
+      "is_active": 1,
+      "created_at": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "alumni": [
+    {
+      "alumni_id": 1000000000010,
+      "user_id": 1000000000001,
+      "full_name": "Demo Admin",
+      "batch_year": 2018,
+      "programme": "Bachelor of Computer Science (Cybersecurity)",
+      "phone": "0123456789",
+      "nric_encrypted": "encrypted_data_placeholder",
+      "address_encrypted": "encrypted_data_placeholder",
+      "updated_at": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "alumni_id": 1000000000011,
+      "user_id": 1000000000002,
+      "full_name": "Demo Alumni",
+      "batch_year": 2022,
+      "programme": "Bachelor of Computer Science (Software Engineering)",
+      "phone": "0198765432",
+      "nric_encrypted": "encrypted_data_placeholder",
+      "address_encrypted": "encrypted_data_placeholder",
+      "updated_at": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "donations": [
+    {
+      "donation_id": 1000000000020,
+      "alumni_id": 1000000000011,
+      "amount": 150.00,
+      "message": "Happy to give back!",
+      "donated_at": "2026-02-01T00:00:00.000Z",
+      "receipt_ref": "MMU-DEMO0001"
+    }
+  ],
+  "auditLogs": [
+    {
+      "log_id": 1000000000030,
+      "action_type": "INSERT",
+      "table_name": "DONATIONS",
+      "changed_at": "2026-02-01T00:00:00.000Z",
+      "user_email": "alumni@demo.mmu",
+      "ip_address": "127.0.0.1"
+    }
+  ]
+}

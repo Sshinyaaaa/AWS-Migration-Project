@@ -81,6 +81,24 @@ variable "enable_waf" {
   default     = true
 }
 
+variable "app_image" {
+  description = "Docker Hub image for the alumni app, e.g. \"youruser/mmu-alumni:latest\". Set in terraform.tfvars."
+  type        = string
+  default     = ""
+}
+
+variable "jwt_secret" {
+  description = <<-EOT
+    JWT signing secret injected into the app container at runtime via user-data.
+    Set in terraform.tfvars (git-ignored). NOTE: user-data is readable from EC2
+    instance metadata, so for production prefer SSM Parameter Store / Secrets
+    Manager (both may be SCP-blocked in the AWS Academy sandbox).
+  EOT
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
 variable "enable_https" {
   description = <<-EOT
     Add a self-signed HTTPS:443 listener to the ALB. Requires acm:ImportCertificate,

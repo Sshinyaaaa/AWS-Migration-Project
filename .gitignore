@@ -1,9 +1,27 @@
+# --- Terraform ---
 terraform.tfvars
 *.tfstate
 *.tfstate.backup
 .terraform/
 .terraform.lock.hcl
 
+# --- Node / app ---
+node_modules/
+dist/
+npm-debug.log*
+
+# --- Secrets (never commit) ---
+.env
+.env.*
+!.env.example
+app/.env
+app/.env.*
+!app/.env.example
+
+# NOTE: app/db.json is the SANITISED demo seed (no real PII) and IS committed
+# on purpose for MOCK MODE. Never replace it with a real data export.
+
+# --- OS / editor ---
 .DS_Store
 Thumbs.db
 *.swp

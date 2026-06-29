@@ -12,35 +12,24 @@ data "aws_ami" "al2023" {
 }
 
 locals {
+  # User-data: install Docker, pull the containerised alumni app from Docker Hub,
+  # and run it. No DB_* env vars are passed, so the app runs in MOCK MODE
+  # (RDS/MSSQL is SCP-blocked in the sandbox). JWT_SECRET is injected at runtime.
   user_data = base64encode(<<-EOF
     #!/bin/bash
     set -xe
+    # --- Install and start Docker (Amazon Linux 2023) ---
     dnf update -y
-    dnf install -y nodejs
-    mkdir -p /opt/app && cd /opt/app
-    cat > server.js <<'JS'
-    const http = require('http');
-    const PORT = ${var.app_port};
-    const server = http.createServer((req, res) => {
-      if (req.url === '/health') { res.writeHead(200); return res.end('ok'); }
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.end('<h1>Student Information System</h1><p>Migrated to AWS - secure app tier (private subnet).</p>');
-    });
-    server.listen(PORT, () => console.log('listening on ' + PORT));
-    JS
-    cat > /etc/systemd/system/app.service <<'UNIT'
-    [Unit]
-    Description=Student Info App
-    After=network.target
-    [Service]
-    ExecStart=/usr/bin/node /opt/app/server.js
-    Restart=always
-    User=root
-    [Install]
-    WantedBy=multi-user.target
-    UNIT
-    systemctl daemon-reload
-    systemctl enable --now app.service
+    dnf install -y docker
+    systemctl enable --now docker
+    # --- Pull and run the app container ---
+    docker pull ${var.app_image}
+    docker rm -f alumni-app 2>/dev/null || true
+    docker run -d --name alumni-app --restart always \
+      -p ${var.app_port}:3000 \
+      -e NODE_ENV=production \
+      -e JWT_SECRET='${var.jwt_secret}' \
+      ${var.app_image}
   EOF
   )
 }
